@@ -7,12 +7,11 @@ NUCLEI="nuclei.txt"
 WAYBACK="wayback.txt"
 PARAMS="params.txt"
 
-# === Logging Function ===
 log() {
     echo -e "[\033[1;32m$(date +%H:%M:%S)\033[0m] $1"
 }
 
-# === Tool Check ===
+# Check required tools
 for tool in subfinder httpx nuclei waybackurls; do
     if ! command -v $tool &> /dev/null; then
         echo "[!] Tool '$tool' not found. Please install it."
@@ -20,26 +19,21 @@ for tool in subfinder httpx nuclei waybackurls; do
     fi
 done
 
-# === Subdomain Enumeration ===
-log "Finding subdomains..."
+log "Starting subdomain enumeration..."
 subfinder -dL "$INPUT" -silent -o "$SUBS"
 
-# === Live Host Checking ===
 log "Checking live domains..."
 httpx -l "$SUBS" -silent -o "$LIVE"
 
-# === Nuclei Scan ===
 log "Running nuclei scans (panel, takeover, cve, exposure)..."
 nuclei -l "$LIVE" -tags panel,takeover,cve,exposure -silent -o "$NUCLEI"
 
-# === Wayback URLs ===
-log "Fetching waybackurls..."
-cat "$SUBS" | waybackurls | tee "$WAYBACK" | grep "=" > "$PARAMS"
+log "Fetching wayback URLs..."
+waybackurls -iL "$SUBS" | tee "$WAYBACK" | grep "=" > "$PARAMS"
 
-log "Recon completed! Output files:"
+log "Basic recon completed! Output files:"
 echo "- $SUBS"
 echo "- $LIVE"
 echo "- $NUCLEI"
 echo "- $WAYBACK"
 echo "- $PARAMS"
-
