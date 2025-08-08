@@ -27,7 +27,7 @@ Run the recon scripts in the following order. Each script uses output files gene
 This script performs subdomain enumeration, live host checking, nuclei scanning, and wayback URL gathering.
 
 ```bash
-bash basic-recon.sh
+bash basic.sh
 ```
 
 **Output files:**
@@ -44,7 +44,7 @@ bash basic-recon.sh
 This script performs deep endpoint discovery, JavaScript secret hunting, parameter analysis with gf patterns, Dalfox XSS scanning, and header misconfiguration analysis.
 
 ```bash
-bash advanced-recon.sh
+bash advanced.sh
 ```
 
 **Output files:**
@@ -57,5 +57,3 @@ bash advanced-recon.sh
 - `headers.txt` — HTTP header analysis for CORS, CSP, and other misconfigurations
 
 Happy hunting! 🚀
-```
-If you want, I can help you generate a detailed installation guide for the required tools as well.
