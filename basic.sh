@@ -29,7 +29,8 @@ log "Running nuclei scans (panel, takeover, cve, exposure)..."
 nuclei -l "$LIVE" -tags panel,takeover,cve,exposure -silent -o "$NUCLEI"
 
 log "Fetching wayback URLs..."
-waybackurls -iL "$SUBS" | tee "$WAYBACK" | grep "=" > "$PARAMS"
+waybackurls -iL "$SUBS" > "$WAYBACK"  # Writing to file directly
+grep "=" "$WAYBACK" > "$PARAMS"  # Extracting parameters
 
 log "Basic recon completed! Output files:"
 echo "- $SUBS"
