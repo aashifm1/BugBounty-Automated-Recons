@@ -28,6 +28,12 @@ for tool in katana hakrawler gau gf dalfox httpx curl; do
     check_tool $tool
 done
 
+# Ensure input files are not empty
+if [[ ! -s "$WAYBACK" || ! -s "$PARAMS" || ! -s "$LIVE" ]]; then
+    echo "[!] One or more input files are empty! Exiting..."
+    exit 1
+fi
+
 log "Extracting JS files from wayback URLs..."
 grep -iE '\.js($|\?)' "$WAYBACK" | sort -u > "$JSFILES"
 
@@ -40,6 +46,7 @@ sort -u "$DEEPENDPOINTS" -o "$DEEPENDPOINTS"
 log "Scanning JS files for potential secrets..."
 > "$SECRETJS"  # Clear file before appending
 while read -r url; do
+    curl -s "$url" || continue  # Skip if curl fails
     curl -s "$url" | grep -Eoi 'apikey|token|secret|key|authorization|bearer\s+[a-z0-9]+' >> "$SECRETJS"
 done < "$JSFILES"
 
