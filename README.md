@@ -1,7 +1,10 @@
 
 # Bug Bounty - Recon Automation
+> Developed for educational purposes only (use it ethically)
 
 This repository contains automated shell scripts for recon in bug bounty hunting. The process is structured and takes input from a `targets.txt` file. These scripts are optimized for **wildcard** domains and designed to be run sequentially, where each step builds on the output of the previous one.
+
+![automation](https://github.com/user-attachments/assets/024d46db-004a-4097-ae11-a4219e925c88)
 
 
 ## Step-by-Step Usage
