@@ -6,7 +6,7 @@ This repository contains automated shell scripts for recon in bug bounty hunting
 
 <img src="https://github.com/user-attachments/assets/024d46db-004a-4097-ae11-a4219e925c88"
      alt="automation"
-     width="700"
+     width="650"
      height="350">
 
 
